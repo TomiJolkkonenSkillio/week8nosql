@@ -1,22 +1,22 @@
-from azure.cosmos import CosmosClient, PartitionKey
+from azure.cosmos import CosmosClient
 
-# Set up Cosmos DB credentials
-endpoint = "<your-cosmos-db-endpoint>"  # Replace with your Cosmos DB endpoint
-key = "<your-cosmos-db-primary-key>"    # Replace with your Cosmos DB key
-
-# Initialize Cosmos client
+# Cosmos DB credentials
+endpoint = "https://tomicosmosdbdemo.documents.azure.com:443/"
+key = "EblxzNm3uL5PZVxTeHlmdEHJdyVjKrFlxBYIjbNTPjHg2vg9nhArjydGWMQIoNOtZDxJqqyCwiNWACDb32ngVQ=="
 client = CosmosClient(endpoint, key)
 
-# Create a new database (if it doesn't exist)
-database_name = "ProductsDB"
-database = client.create_database_if_not_exists(id=database_name)
+# Create database and container
+database_name = 'TomiDB'
+container_name = 'TomiContainer'
 
-# Create a new container (if it doesn't exist)
-container_name = "ProductsContainer"
+# Create Database if it doesn't exist, checking
+database = client.create_database_if_not_exists(database_name)
+
+# Create Container if it doesn't exist, checking
 container = database.create_container_if_not_exists(
     id=container_name,
-    partition_key=PartitionKey(path="/category"),  # Partition key based on 'category'
-    offer_throughput=400  # You can adjust the throughput (performance) of the container
+    partition_key={'paths': ['/id'], 'kind': 'Hash'},
+    offer_throughput=400
 )
 
-print(f"Database '{database_name}' and container '{container_name}' are created!")
+print(f"Database '{database_name}' and Container '{container_name}' created or already exist.")
