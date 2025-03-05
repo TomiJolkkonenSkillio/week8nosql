@@ -2,8 +2,8 @@ from azure.cosmos import CosmosClient
 import statistics
 
 # Cosmos DB credentials
-endpoint = "https://tomicosmosdbdemo.documents.azure.com:443/"
-key = "EblxzNm3uL5PZVxTeHlmdEHJdyVjKrFlxBYIjbNTPjHg2vg9nhArjydGWMQIoNOtZDxJqqyCwiNWACDb32ngVQ=="
+endpoint = "x"
+key = "x"
 client = CosmosClient(endpoint, key)
 
 # Connect to database & container
